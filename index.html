@@ -43,6 +43,20 @@
             height: 100%;
             z-index: -1;
             opacity: 0.5;
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+        }
+
+        #cursor-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3), transparent);
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
         }
 
         #splash-screen {
@@ -67,13 +81,18 @@
             background-clip: text;
             color: transparent;
             text-shadow: 0 0 12px rgba(139, 92, 246, 0.5), 0 0 12px rgba(57, 255, 20, 0.5);
-            animation: pulse 2s infinite;
+            animation: pulse 2s infinite, gradientShift 4s linear infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
         @keyframes fadeOut {
@@ -112,12 +131,14 @@
         .lang-switch button:hover {
             background: linear-gradient(45deg, #a78bfa, #50ff2e);
             color: var(--dark-bg);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
         }
 
         header {
             text-align: center;
             padding: 5rem 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
         }
 
         header h1 {
@@ -129,7 +150,7 @@
             color: transparent;
             text-shadow: 0 0 12px rgba(139, 92, 246, 0.5), 0 0 12px rgba(57, 255, 20, 0.5);
             letter-spacing: -0.02em;
-            animation: fadeInUp 1s ease;
+            animation: gradientShift 4s linear infinite;
         }
 
         header h2 {
@@ -138,7 +159,6 @@
             color: var(--text-light);
             opacity: 0.8;
             margin-top: 1rem;
-            animation: fadeInUp 1.2s ease;
         }
 
         @keyframes fadeInUp {
@@ -149,6 +169,8 @@
         .summary {
             padding: 4rem 0;
             text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.7s forwards;
         }
 
         .summary p {
@@ -157,12 +179,6 @@
             font-size: 1.2rem;
             color: var(--text-light);
             opacity: 0.9;
-            animation: fadeIn 1.5s ease;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 0.9; }
         }
 
         .contact {
@@ -170,6 +186,8 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             padding: 4rem 0;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
         }
 
         .contact-card {
@@ -179,7 +197,22 @@
             border-radius: 12px;
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
-            animation: fadeInUp 1s ease;
+            transform: translateY(10px);
+            opacity: 0;
+        }
+
+        .contact-card:nth-child(1) { animation: cardFadeIn 0.8s ease 1s forwards; }
+        .contact-card:nth-child(2) { animation: cardFadeIn 0.8s ease 1.1s forwards; }
+        .contact-card:nth-child(3) { animation: cardFadeIn 0.8s ease 1.2s forwards; }
+        .contact-card:nth-child(4) { animation: cardFadeIn 0.8s ease 1.3s forwards; }
+        .contact-card:nth-child(5) { animation: cardFadeIn 0.8s ease 1.4s forwards; }
+        .contact-card:nth-child(6) { animation: cardFadeIn 0.8s ease 1.5s forwards; }
+        .contact-card:nth-child(7) { animation: cardFadeIn 0.8s ease 1.6s forwards; }
+        .contact-card:nth-child(8) { animation: cardFadeIn 0.8s ease 1.7s forwards; }
+
+        @keyframes cardFadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .contact-card:nth-child(odd) i {
@@ -191,8 +224,8 @@
         }
 
         .contact-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3), 0 8px 20px rgba(57, 255, 20, 0.3);
             border-color: var(--purple);
         }
 
@@ -211,6 +244,11 @@
         .contact-card i {
             margin-right: 0.8rem;
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover i {
+            transform: scale(1.2);
         }
 
         .contact-card.rtl i {
@@ -245,6 +283,8 @@
             border-top: 1px solid var(--purple);
             color: var(--text-light);
             opacity: 0.7;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.1s forwards;
         }
 
         .lang-en { display: block; }
@@ -273,6 +313,10 @@
             .contact-card {
                 padding: 1.5rem;
             }
+
+            #cursor-effect {
+                display: none; /* Hide cursor effect on mobile */
+            }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -280,6 +324,7 @@
 </head>
 <body>
     <canvas id="particle-canvas"></canvas>
+    <div id="cursor-effect"></div>
     <div id="splash-screen">
         <h1 class="lang-en">Tecso Team</h1>
         <h1 class="lang-fa">تیم تکسو</h1>
@@ -373,7 +418,7 @@
                 this.size = Math.random() * 6 + 2;
                 this.speedX = Math.random() * 3 - 1.5;
                 this.speedY = Math.random() * 3 - 1.5;
-                this.color = Math.random() < 0.5 ? '#8b5cf6' : '#39ff14'; // 50-50 purple and green
+                this.color = Math.random() < 0.5 ? '#8b5cf6' : '#39ff14';
             }
 
             update() {
@@ -437,6 +482,19 @@
 
         initParticles();
         animateParticles();
+
+        // Parallax Scroll Effect
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            canvas.style.transform = `translateY(${scrollY * 0.3}px)`;
+        });
+
+        // Cursor Effect
+        const cursor = document.getElementById('cursor-effect');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.clientX}px`;
+            cursor.style.top = `${e.clientY}px`;
+        });
 
         // Language Toggle
         function toggleLanguage() {
