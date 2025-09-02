@@ -6,12 +6,12 @@
     <title>Tecso Team</title>
     <style>
         :root {
-            --purple: #6f42c1;
-            --dark-bg: #0d1117;
+            --purple: #8b5cf6;
             --green-neon: #39ff14;
+            --dark-bg: #0d1117;
             --text-light: #e6edf3;
             --glass-bg: rgba(22, 27, 34, 0.7);
-            --glass-border: rgba(111, 66, 193, 0.2);
+            --glass-border: rgba(139, 92, 246, 0.2);
         }
 
         * {
@@ -62,8 +62,11 @@
 
         #splash-screen h1 {
             font-size: 3.5rem;
-            color: var(--green-neon);
-            text-shadow: 0 0 12px var(--green-neon);
+            background: linear-gradient(45deg, var(--purple), var(--green-neon));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(139, 92, 246, 0.5), 0 0 12px rgba(57, 255, 20, 0.5);
             animation: pulse 2s infinite;
         }
 
@@ -95,7 +98,7 @@
         }
 
         .lang-switch button {
-            background: var(--purple);
+            background: linear-gradient(45deg, var(--purple), var(--green-neon));
             color: var(--text-light);
             border: none;
             padding: 0.6rem 1.2rem;
@@ -103,11 +106,11 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(111, 66, 193, 0.3);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
         }
 
         .lang-switch button:hover {
-            background: var(--green-neon);
+            background: linear-gradient(45deg, #a78bfa, #50ff2e);
             color: var(--dark-bg);
             transform: translateY(-2px);
         }
@@ -120,8 +123,11 @@
         header h1 {
             font-size: 4rem;
             font-weight: 800;
-            color: var(--green-neon);
-            text-shadow: 0 0 12px var(--green-neon);
+            background: linear-gradient(45deg, var(--purple), var(--green-neon));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 12px rgba(139, 92, 246, 0.5), 0 0 12px rgba(57, 255, 20, 0.5);
             letter-spacing: -0.02em;
             animation: fadeInUp 1s ease;
         }
@@ -176,9 +182,21 @@
             animation: fadeInUp 1s ease;
         }
 
+        .contact-card:nth-child(odd) i {
+            color: var(--purple);
+        }
+
+        .contact-card:nth-child(even) i {
+            color: var(--green-neon);
+        }
+
         .contact-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 8px 20px rgba(111, 66, 193, 0.2);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.2);
+            border-color: var(--purple);
+        }
+
+        .contact-card:nth-child(even):hover {
             border-color: var(--green-neon);
         }
 
@@ -191,7 +209,6 @@
         }
 
         .contact-card i {
-            color: var(--green-neon);
             margin-right: 0.8rem;
             font-size: 1.2rem;
         }
@@ -207,7 +224,12 @@
             transition: color 0.3s ease;
         }
 
-        .contact-card a:hover {
+        .contact-card:nth-child(odd) a:hover {
+            color: var(--purple);
+            text-shadow: 0 0 5px var(--purple);
+        }
+
+        .contact-card:nth-child(even) a:hover {
             color: var(--green-neon);
             text-shadow: 0 0 5px var(--green-neon);
         }
@@ -289,7 +311,7 @@
 
             <div class="contact-card">
                 <h3><i class="fab fa-telegram"></i> <span class="lang-en">Telegram</span><span class="lang-fa">تلگرام</span></h3>
-                <p><a href="https://t.me/+989922068945" target="_blank">Tecso Telegram</a></p>
+                <p><a href="https://t.me/+989922068945" target="_blank">+98 992 206 8945</a></p>
             </div>
 
             <div class="contact-card">
@@ -351,7 +373,7 @@
                 this.size = Math.random() * 6 + 2;
                 this.speedX = Math.random() * 3 - 1.5;
                 this.speedY = Math.random() * 3 - 1.5;
-                this.color = Math.random() < 0.5 ? '#6f42c1' : '#39ff14';
+                this.color = Math.random() < 0.5 ? '#8b5cf6' : '#39ff14'; // 50-50 purple and green
             }
 
             update() {
