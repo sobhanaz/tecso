@@ -42,7 +42,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.4;
+            opacity: 0.5;
         }
 
         #splash-screen {
@@ -337,15 +337,15 @@
         });
 
         const particlesArray = [];
-        const numberOfParticles = 60;
+        const numberOfParticles = 100;
 
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 4 + 1;
-                this.speedX = Math.random() * 1.5 - 0.75;
-                this.speedY = Math.random() * 1.5 - 0.75;
+                this.size = Math.random() * 6 + 2;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
                 this.color = Math.random() < 0.5 ? '#6f42c1' : '#39ff14';
             }
 
@@ -353,7 +353,7 @@
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                if (this.size > 0.2) this.size -= 0.03;
+                if (this.size > 0.3) this.size -= 0.02;
 
                 if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
@@ -363,7 +363,10 @@
                 ctx.fillStyle = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
                 ctx.fill();
+                ctx.shadowBlur = 0;
             }
         }
 
@@ -384,17 +387,19 @@
                     const dy = particlesArray[i].y - particlesArray[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 120) {
+                    if (distance < 150) {
                         ctx.beginPath();
                         ctx.strokeStyle = particlesArray[i].color;
-                        ctx.lineWidth = 0.15;
+                        ctx.lineWidth = 0.3;
+                        ctx.globalAlpha = Math.max(0.3, 1 - distance / 150);
                         ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
                         ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
                         ctx.stroke();
+                        ctx.globalAlpha = 1;
                     }
                 }
 
-                if (particlesArray[i].size <= 0.2) {
+                if (particlesArray[i].size <= 0.3) {
                     particlesArray.splice(i, 1);
                     i--;
                     particlesArray.push(new Particle());
