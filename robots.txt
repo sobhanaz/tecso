@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Sitemap: https://tecso.team/sitemap.xml
+
+# Allow all bots to access all content
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Image
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: YandexBot
+Allow: /
+User-agent: Baiduspider
+Allow: /
