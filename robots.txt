@@ -1,15 +1,34 @@
+# Global rules for all bots
 User-agent: *
 Allow: /
-Sitemap: https://tecso.team/sitemap.xml
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /cgi-bin/
+Disallow: /*.sql$
+Disallow: /*.zip$
+Disallow: /search?
+Disallow: /*?replytocom
 
-# Allow all bots to access all content
+# Specific rules for major search engines
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
+
 User-agent: Googlebot-Image
 Allow: /
+Allow: /images/
+
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
+
 User-agent: YandexBot
 Allow: /
+Crawl-delay: 2
+
 User-agent: Baiduspider
 Allow: /
+Crawl-delay: 2
+
+# Sitemap declaration
+Sitemap: https://tecso.team/sitemap.xml
